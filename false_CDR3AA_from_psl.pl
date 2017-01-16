@@ -77,10 +77,6 @@ while (<IN>) {
           if $query_matched_proportion < 0.8
         ; # Do not consider query sequences with <80% matched to genome in blacklist
         next if exists $white_list{ $a[9] };
-        if ( exists $white_list{ $a[9] } ) {
-            next if $white_list{ $a[9] } > $a[0];
-            delete $white_list{ $a[9] };
-        }
         $black_list{ $a[9] } = $a[0];
     }
     else {
