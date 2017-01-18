@@ -28,27 +28,27 @@ do
 	
 	echo "[`date`] Exporting clones to tab-delimited files using mixcr for $pfx"
 	mixcr exportClones -count -fraction -sequence -vHit -jHit -vAlignment -jAlignment -aaFeature CDR3 \
-		$name/$name.$chain.clones.clns $name/$name.$chain.clones.txt
+		$pfx.$chain.clones.clns $pfx.$chain.clones.txt
 	
 	echo "[`date`] Preparing FASTA files of CDR3 nt sequences as BLAT input for $pfx"
-	tail -n +2 $name/$name.$chain.clones.txt | awk '{a++;print ">"a"\n"$3}' > $name/$name.$chain.cloneseq.fa
+	tail -n +2 $pfx.$chain.clones.txt | awk '{a++;print ">"a"\n"$3}' > $pfx.$chain.cloneseq.fa
 	
 	echo "[`date`] Align CDR3 sequences of $pfx against human reference genome"
-	blat $ref $name/$name.$chain.cloneseq.fa -ooc=$blat11ooc $name/$name.$chain.cloneseq.psl
+	blat $ref $pfx.$chain.cloneseq.fa -ooc=$blat11ooc $pfx.$chain.cloneseq.psl
 	
 	echo "[`date`] Filtering CDR3 clones based on blat results for $pfx "
 	# remove clones with CDR3 sequences aligned to genomics regions other than expected TCR loci or,
 	# with 90% or more of the sequences aligned to a single TCR gene
-	./psl_modifier_for_mixcr.pl $name/$name.$chain.clones.txt $name/$name.$chain.cloneseq.psl $chain \
-		> $name/$name.$chain.blat.clones.txt
+	./psl_modifier_for_mixcr.pl $pfx.$chain.clones.txt $pfx.$chain.cloneseq.psl $chain \
+		> $pfx.$chain.blat.clones.txt
 	
 	echo "[`date`] Preparing FASTA files of CDR3-containing reads as BLAT input for $pfx"
 	$mixcr exportAlignments -sequence -vHit -jHit -vAlignment -jAlignment -aaFeature CDR3 \
-		$name/$name.$chain.alignments.vdjca \
-		$name/$name.$chain.alignments.txt
-	awk 'NF==6' $name/$name.$chain.alignments.txt > $name/$name.$chain.alignments.txt.1
-	mv $name/$name.$chain.alignments.txt.1 $name/$name.$chain.alignments.txt
-	cat $name/$name.$chain.alignments.txt |\
+		$pfx.$chain.alignments.vdjca \
+		$pfx.$chain.alignments.txt
+	awk 'NF==6' $pfx.$chain.alignments.txt > $pfx.$chain.alignments.txt.1
+	mv $pfx.$chain.alignments.txt.1 $pfx.$chain.alignments.txt
+	cat $pfx.$chain.alignments.txt |\
 		perl -ane '
 			$n++;
 			if( $F[0] =~ /,/ ){
@@ -56,15 +56,24 @@ do
 				 print ">$n.1:$F[5]\n$seqs[0]\n>$n.2:$F[5]\n$seqs[1]\n";
 			} else {
 			 	print ">$n.0:$F[5]\n$F[0]\n";
-			}' > $name/$name.$chain.alignedreads.fa
+			}' > $pfx.$chain.alignedreads.fa
 
+	if [ -f recurrent_CDR3.txt ]
+	then
+		echo "[`date`] Removing clones with recurrent CDR3 sequences for $pfx"
+		./recurrent_removal.pl $pfx.$chain.blat.clones.txt recurrent_CDR3.txt |\
+			sed 's/ /_/g' > $pfx.$chain.blat.clones.txt.1
+		mv $pfx.$chain.blat.clones.txt.1 $pfx.$chain.blat.clones.txt
+	fi
+	
 	echo "[`date`] Align CDR3-containing reads of $pfx against human reference genome"
-	blat $ref $name/$name.$chain.alignedreads.fa -ooc=$blat11ooc $name/$name.$chain.alignedreads.psl
+	blat $ref $pfx.$chain.alignedreads.fa -ooc=$blat11ooc $pfx.$chain.alignedreads.psl
+	
 	echo "[`date`] Identify and remove sequences that were falsely recognized as CDR3 for $pfx"
-	./false_CDR3AA_remover.pl $name/$name.$gene.rec_cdr3.clones.txt $name/$name.$gene.falseCDR3AA \
-		> $name/$name.$gene.falseCDR3AA
-	./false_CDR3AA_remover.pl $name/$name.$gene.rec_cdr3.clones.txt $name/$name.$gene.falseCDR3AA \
-		> $name/$name.$gene.flt.clones.txt
+	./false_CDR3AA_from_psl.pl $pfx.$gene.blat.clones.txt $pfx.$gene.falseCDR3AA \
+		> $pfx.$gene.falseCDR3AA
+	./false_CDR3AA_remover.pl $pfx.$gene.blat.clones.txt $pfx.$gene.falseCDR3AA \
+		> $pfx.$gene.flt.clones.txt
 done
 
 # move sample data to a sub-dicrectory
