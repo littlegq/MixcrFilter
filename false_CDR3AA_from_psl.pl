@@ -32,8 +32,8 @@ while (<IN>) {
           if $a[13] =~ /chr14_KI27.*_alt/
               or (
                       $a[13] eq "chr14"
-                  and $a[15] >= 21621838    # TRA locus start point on hg38
-                  and $a[16] <= 23014042
+                  and $a[16] >= 21621838    # TRA locus start point on hg38
+                  and $a[15] <= 23014042
               );                            # TRA locus end posint on hg19
     }
     elsif ( $strand eq "TRB" ) {
@@ -44,8 +44,8 @@ while (<IN>) {
               /chr7_KI27.*_alt/ # chr7_KI270803v1_alt is the one carring paralogs
               or (
                       $a[13] eq "chr7"
-                  and $a[15] >= 142000747    # TRB locus start position on hg19
-                  and $a[16] <= 142813399
+                  and $a[16] >= 142000747    # TRB locus start position on hg19
+                  and $a[15] <= 142813399
               );                             # TRB locus end position on hg38
     }
     elsif ( $strand eq "TRG" ) {
@@ -53,8 +53,8 @@ while (<IN>) {
           if $a[13] =~ /chr7_KI27.*_alt/
               or (
                       $a[13] eq "chr7"
-                  and $a[15] >= 38253380     # TRGJ locus start position on hg38
-                  and $a[16] <= 38407494
+                  and $a[16] >= 38253380     # TRGJ locus start position on hg38
+                  and $a[15] <= 38407494
               );                             # TRBV locus end position on hg19
     }
     elsif ( $strand eq "TRD" ) {
@@ -62,8 +62,8 @@ while (<IN>) {
           if $a[13] =~ /chr14_KI27.*_alt/
               or (
                       $a[13] eq "chr14"
-                  and $a[15] >= 22096032     # TRDV locus start position on hg38
-                  and $a[16] <= 22928148
+                  and $a[16] >= 22096032     # TRDV locus start position on hg38
+                  and $a[15] <= 22928148
               );                             # TRDJ locus end position on hg19
     }
     else {
