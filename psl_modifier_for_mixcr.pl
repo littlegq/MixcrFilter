@@ -54,7 +54,7 @@ while (<IN>) {
     }
     my $matched_size       = $a[12] - $a[11];
     my $matched_proportion = $matched_size / $a[10];
-    my $match_score        = $a[0] / $matched_proportion;
+    my $match_score        = $a[0] / $a[10];
     $black_list{ $a[9] } = 1
       if ( $matched_proportion >= 0.9 and $match_score >= 0.9 )
       or $outtarget;                      # Filtering conditions
