@@ -71,12 +71,16 @@ while (<IN>) {
 "Unrecognizable Gene name, which should be one of TRA, TRB, TRG or TRD\n"
         );
     }
-    my $query_matched_proportion = ( $a[12] - $a[11] + 1 ) / $a[10];
+    my $query_matched_proportion = $a[0] / $a[10];
     if ($outtarget) {
         next
           if $query_matched_proportion < 0.8
         ; # Do not consider query sequences with <80% matched to genome in blacklist
         next if exists $white_list{ $a[9] };
+        if ( exists $white_list{ $a[9] } ) {
+            next if $white_list{ $a[9] } > $a[0];
+            delete $white_list{ $a[9] };
+        }
         $black_list{ $a[9] } = $a[0];
     }
     else {

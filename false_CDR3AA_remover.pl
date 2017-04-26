@@ -27,7 +27,7 @@ my @cdr3s;
 open IN, $file1 or die($!);
 while (<IN>) {
     chomp;
-	if(/^Clone_count/){
+	if(/^Clone/){
 		print "$_\n";
 		next;
 	}
