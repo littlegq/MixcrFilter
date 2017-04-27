@@ -68,7 +68,7 @@ do
 	blat $ref $pfx.$chain.cloneseq.fa -ooc=$blat11ooc $pfx.$chain.cloneseq.psl
 	./psl_modifier_for_mixcr.pl $pfx.$chain.blat1.clones.txt $pfx.$chain.cloneseq.psl $chain > $pfx.$chain.blat2.clones.txt
 	
-	## *blat2.clones.txt files from different samples could be used to summarize the frequencies of CDR3 sequences
+	## *blat2.clones.txt files from different samples could be used to summarize the frequencies of CDR3 sequences (see RecurrentCDR3.sh)
 	## We provide our observed frequency in the file recurrent_CDR3.txt
 	if [ -f recurrent_CDR3.txt ]
 	then
