@@ -3,7 +3,7 @@
 # Stat the frequencies of CDR3 sequences
 # Must run in the same directory as MixcrFilter.sh
 
-cat */*.blat.clones.txt |\
+cat */*.blat2.clones.txt |\
 	awk '$1!~/^Clone/' |\
 	perl -e '
 		my %cl;
