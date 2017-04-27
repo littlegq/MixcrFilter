@@ -57,23 +57,27 @@ do
 			} else {
 			 	print ">$n.0:$F[5]\n$F[0]\n";
 			}' > $pfx.$chain.alignedreads.fa
-
-	if [ -f recurrent_CDR3.txt ]
-	then
-		echo "[`date`] Removing clones with recurrent CDR3 sequences for $pfx"
-		./recurrent_removal.pl $pfx.$chain.blat.clones.txt recurrent_CDR3.txt |\
-			sed 's/ /_/g' > $pfx.$chain.blat.clones.txt.1
-		mv $pfx.$chain.blat.clones.txt.1 $pfx.$chain.blat.clones.txt
-	fi
 	
 	echo "[`date`] Align CDR3-containing reads of $pfx against human reference genome"
 	blat $ref $pfx.$chain.alignedreads.fa -ooc=$blat11ooc $pfx.$chain.alignedreads.psl
+	./false_CDR3AA_from_psl.pl $pfx.$chain.blat.clones.txt $pfx.$chain.falseCDR3AA \
+		> $pfx.$chain.falseCDR3AA
+	./false_CDR3AA_remover.pl $pfx.$chain.blat.clones.txt $pfx.$chain.falseCDR3AA \
+		> $pfx.$chain.blat1.clones.txt
+	tail -n +2 $pfx.$chain.blat1.clones.txt | awk '{a++;print ">"a"\n"$3}' > $pfx.$chain.cloneseq.fa
+	blat $ref $pfx.$chain.cloneseq.fa -ooc=$blat11ooc $pfx.$chain.cloneseq.psl
+	./psl_modifier_for_mixcr.pl $pfx.$chain.blat1.clones.txt $pfx.$chain.cloneseq.psl $chain > $pfx.$chain.blat2.clones.txt
 	
-	echo "[`date`] Identify and remove sequences that were falsely recognized as CDR3 for $pfx"
-	./false_CDR3AA_from_psl.pl $pfx.$gene.blat.clones.txt $pfx.$gene.falseCDR3AA \
-		> $pfx.$gene.falseCDR3AA
-	./false_CDR3AA_remover.pl $pfx.$gene.blat.clones.txt $pfx.$gene.falseCDR3AA \
-		> $pfx.$gene.flt.clones.txt
+	## *blat2.clones.txt files from different samples could be used to summarize the frequencies of CDR3 sequences
+	## We provide our observed frequency in the file recurrent_CDR3.txt
+	if [ -f recurrent_CDR3.txt ]
+	then
+		echo "[`date`] Removing clones with recurrent CDR3 sequences for $pfx"
+		./recurrent_removal.pl $pfx.$chain.blat2.clones.txt recurrent_CDR3.txt |\
+			sed 's/ /_/g' > $pfx.$chain.flt.clones.txt
+	else
+		cp $pfx.$chain.blat2.clones.txt $pfx.$chain.flt.clones.txt
+	fi
 done
 
 # move sample data to a sub-dicrectory
