@@ -21,7 +21,8 @@ A sub-directary with the files with the sample name as the prefix, and following
 | clones.txt        | Raw clones from MiXCR exportClones |
 | cloneseq.fa       | FASTA file of all nucleotide sequences of CDR3 region |
 | cloneseq.psl      | BLAT results of \*.cloneseq.fa against reference genome |
-| blat.clones.txt   | Clones excluding the ones which CDR3 nt seq mapped to non-TCR regions |
+| blat1.clones.txt  | Clones excluding the ones which CDR3-containing reads mapped to non-TCR regions |
+| blat2.clones.txt  | Clones excluding the ones which CDR3 nt seq mapped to non-TCR regions |
 | alignments.txt    | Alignment data from MiXCR exportAlignments |
 | alignedreads.fa   | Original reads containing identified CDR3 sequences | 
 | alignedreads.psl  | BLAT results of \*.alignedreads.fa against reference genome |
