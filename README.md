@@ -1,5 +1,5 @@
 # MixcrFilter
-To filter out TCR clones which were falsely recognized by MiXCR from paralog sequences
+[MiXCR](https://github.com/milaboratory/mixcr) is a powerful computation program for TCR analysis. It can identify human TCR clones from raw sequences in a highly sensitive way. However, when the input sequences were not exclusively from TCR regions, some paralog sequences, such as those from immunoglobulin regions, could be mis-identified as TCR genes. Here we provide a bash script, named MixcrFilter, to filter out TCR clones which were falsely recognized by MiXCR from paralog sequences according to alignment results by [BLAT](http://genome.ucsc.edu/goldenPath/help/blatSpec.html#blatUsage). 
 
 ## Pre-required programs:
 1. [MiXCR](https://github.com/milaboratory/mixcr)
