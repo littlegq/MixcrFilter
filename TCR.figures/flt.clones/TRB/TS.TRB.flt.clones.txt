@@ -1,0 +1,2 @@
+Clone_count	Clone_fraction	Clonal_sequence(s)	Best_V_hit	Best_J_hit	Best_V_alignment	Best_J_alignment	AA._seq._CDR3
+1	1	TGTGCCAGCAGTTTCAGTAGGGGAACAGATACGCAGTATTTT	TRBV27*00	TRBJ2-3*00	427|441|444|0|14||70.0	3|21|45|24|42||90.0	CASSFSRGTDTQYF
