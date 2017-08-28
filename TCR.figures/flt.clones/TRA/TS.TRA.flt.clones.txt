@@ -1,0 +1,2 @@
+Clone_count	Clone_fraction	Clonal_sequence(s)	Best_V_hit	Best_J_hit	Best_V_alignment	Best_J_alignment	AA._seq._CDR3
+1	1	TGTGTATCACTCATGTCCTTCTCACCACTAGAAAGGCATTTCTACATT	TRAV14DV4*00	TRAJ39*00	433|437|450|0|4||20.0	30|32|59|46|48||10.0	CVSLMSFSPLERHFYI
