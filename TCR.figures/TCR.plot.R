@@ -297,7 +297,7 @@ b[b$Sample %in% TRB.excluded, 'Order'] <- 0   # fill the low express ones with w
 b <- within(b, Sample <- factor(Sample, levels = case_orders)) 
 
 ## Plot TRB
-pb <- ggplot(b, aes(x = factor(Sample), y = Portion, fill = factor(Order), width = .5))
+pb <- ggplot(b, aes(x = factor(Sample), y = Portion, fill = factor(Order, levels = 11:0), width = .5))
 pb <- pb + geom_bar(stat = "identity", color = "black") + scale_y_continuous(labels = percent)
 pb <- pb + scale_fill_manual(values = colors)
 pb <- pb + theme_bw() + theme(
@@ -318,7 +318,7 @@ a[a$Sample %in% TRA.excluded, 'Order'] <- 0   # fill the low express ones with w
 a <- within(a, Sample <- factor(Sample, levels = case_orders))  
 
 ## Plot TRA
-pa <- ggplot(a, aes(x = factor(Sample), y = Portion, fill = factor(Order), width = .5))
+pa <- ggplot(a, aes(x = factor(Sample), y = Portion, fill = factor(Order, levels = 11:0), width = .5))
 pa <- pa + geom_bar(stat = "identity", color = "black") + scale_y_continuous(labels = percent)
 pa <- pa + scale_fill_manual(values = colors)
 pa <- pa + theme_bw() + theme(
@@ -437,7 +437,7 @@ colnames(b)[1] <- 'Conversed_ID'
 colnames(b)[10] <- 'Sample'
 b[b$Sample %in% TRB.excluded, 'Order'] <- 0   # fill the low express ones with white
 b <- within(b, Sample <- factor(Sample, levels = case_orders))  
-pb <- ggplot(b, aes(x = factor(Sample), y = Portion, fill = factor(Order), width = .5))
+pb <- ggplot(b, aes(x = factor(Sample), y = Portion, fill = factor(Order, levels = 11:0), width = .5))
 pb <- pb + geom_bar(stat = "identity", color = "black") + scale_y_continuous(labels = percent)
 pb <- pb + scale_fill_manual(values = colors)
 pb <- pb + theme_bw() + theme(
@@ -455,7 +455,7 @@ colnames(a)[1] <- 'Conversed_ID'
 colnames(a)[10] <- 'Sample'
 a[a$Sample %in% TRA.excluded, 'Order'] <- 0   # fill the low express ones with white
 a <- within(a, Sample <- factor(Sample, levels = case_orders))  
-pa <- ggplot(a, aes(x = factor(Sample), y = Portion, fill = factor(Order), width = .5))
+pa <- ggplot(a, aes(x = factor(Sample), y = Portion, fill = factor(Order, levels = 11:0), width = .5))
 pa <- pa + geom_bar(stat = "identity", color = "black") + scale_y_continuous(labels = percent)
 pa <- pa + scale_fill_manual(values = colors)
 pa <- pa + theme_bw() + theme(
@@ -557,7 +557,7 @@ b[b$Sample %in% TRB.excluded, 'Order'] <- 0   # fill the low express ones with w
 b <- within(b, Sample <- factor(Sample, levels = case_orders))  
 
 ## Plot TRB
-pb <- ggplot(b, aes(x = factor(Sample), y = Portion, fill = factor(Order), width=.5))
+pb <- ggplot(b, aes(x = factor(Sample), y = Portion, fill = factor(Order, levels = 11:0), width=.5))
 pb <- pb + geom_bar(stat = "identity", color = "black") + scale_y_continuous(labels = percent)
 pb <- pb + scale_fill_manual(values = colors)
 pb <- pb + theme_bw() + theme(
@@ -577,7 +577,7 @@ a[a$Sample %in% TRA.excluded, 'Order'] <- 0   # fill the low express ones with w
 a <- within(a, Sample <- factor(Sample, levels = case_orders))
 
 ## Plot TRA
-pa <- ggplot(a, aes(x = factor(Sample), y = Portion, fill = factor(Order), width=.5))
+pa <- ggplot(a, aes(x = factor(Sample), y = Portion, fill = factor(Order, levels = 11:0), width=.5))
 pa <- pa + geom_bar(stat = "identity", color = "black") + scale_y_continuous(labels = percent)
 pa <- pa + scale_fill_manual(values = colors)
 pa <- pa + theme_bw() + theme(
