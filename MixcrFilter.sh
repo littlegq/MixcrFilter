@@ -60,7 +60,7 @@ do
 	
 	echo "[`date`] Align CDR3-containing reads of $pfx against human reference genome"
 	blat $ref $pfx.$chain.alignedreads.fa -ooc=$blat11ooc $pfx.$chain.alignedreads.psl
-	./false_CDR3AA_from_psl.pl $pfx.$chain.blat.clones.txt $pfx.$chain.falseCDR3AA \
+	./false_CDR3AA_from_psl.pl $pfx.$chain.alignments.txt $pfx.$chain.alignedreads.psl $chain \
 		> $pfx.$chain.falseCDR3AA
 	./false_CDR3AA_remover.pl $pfx.$chain.blat.clones.txt $pfx.$chain.falseCDR3AA \
 		> $pfx.$chain.blat1.clones.txt
