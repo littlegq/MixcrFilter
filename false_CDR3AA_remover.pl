@@ -27,11 +27,12 @@ my @cdr3s;
 open IN, $file1 or die($!);
 while (<IN>) {
     chomp;
-	if(/^Clone/){
+	if(/^[cC]lone/){
 		print "$_\n";
 		next;
 	}
     my @a = split /\t/;
+    next unless $a[0] =~ /^[0-9]$/;
     next if exists $fc3aa{ $a[7] };
 	$total_rc += $a[0];
 	push @cdr3s, $_;
